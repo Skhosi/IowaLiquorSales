@@ -59,7 +59,18 @@ FROM `bigquery-public-data.iowa_liquor_sales.sales`
 GROUP BY Month
 ORDER BY Month
 
---7. What is the Average Profit Margin per bottle sold on the 20 highest selling bottles?
+--7. Total Sales by Day of the week
+SELECT
+EXTRACT(dayofweek FROM date) as DayOfWeek,
+sum(sale_dollars)
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY DayOfWeek
+ORDER BY DayOfWeek desc
+limit 100
+
+
+
+--8. What is the Average Profit Margin per bottle sold on the 20 highest selling bottles?
 
 SELECT state_bottle_cost, state_bottle_retail,item_description,bottles_sold,
 ROUND(AVG(state_bottle_retail)-AVG(state_bottle_cost),2) /nullif(AVG(state_bottle_cost),0)*100 as 
@@ -69,7 +80,7 @@ GROUP BY state_bottle_cost, state_bottle_retail,item_description,bottles_sold
 ORDER BY bottles_sold DESC , AvgProfitMargin DESC
 LIMIT 20
 
---8. Which 20 bottles yield the highest average profit margin per bottle sold?
+--9. Which 20 bottles yield the highest average profit margin per bottle sold?
 
 SELECT state_bottle_cost, state_bottle_retail,item_description,bottles_sold,
 ROUND(AVG(state_bottle_retail)-AVG(state_bottle_cost),2) /nullif(AVG(state_bottle_cost),0)*100 as 
