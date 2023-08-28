@@ -1,0 +1,80 @@
+ --1. View all of the Data
+SELECT *
+FROM`bigquery-public-data.iowa_liquor_sales.sales` LIMIT 100
+
+--2. How many bottles of liquor are sold annually?
+
+SELECT
+  EXTRACT(Year FROM date) AS Year,
+  Round(SUM(sale_dollars)) as Annual_Liquor_Sales
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY Year
+ORDER BY Year
+
+--3. Which are the top 10 selling bottles for each year?
+
+WITH CTE AS (
+   SELECT EXTRACT (Year FROM date) as Year,
+   COUNT (*) AS bottles_sold,
+   item_description,
+   category_name,
+  FROM `bigquery-public-data.iowa_liquor_sales.sales`
+  GROUP BY Year, item_description,category_name
+)
+SELECT *
+FROM (
+  SELECT *,
+  DENSE_RANK() OVER (PARTITION BY Year ORDER BY bottles_sold DESC) AS rank
+FROM CTE
+) 
+WHERE RANK <=10
+ORDER BY Year, rank
+
+--4. Which county in Iowa records the highest amount of liquor sales?
+
+SELECT
+  county,
+  ROUND(SUM(sale_dollars),2) as CountySales,
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY county
+ORDER BY CountySales DESC
+
+
+--5. Which are the Top 20 performing stores in the state of Iowa and the county they are located?
+
+SELECT 
+  county,
+  store_name,
+  ROUND(SUM(sale_dollars),2) as County_Sales,
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY county,store_name
+ORDER BY county_sales DESC
+limit 20;
+
+--6.  What is the total sales of bottles grouped by the month. 
+SELECT
+EXTRACT(Month FROM date) as Month,
+ROUND(SUM(sale_dollars)) AS totalsales,
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY Month
+ORDER BY Month
+
+--7. What is the Average Profit Margin per bottle sold on the 20 highest selling bottles?
+
+SELECT state_bottle_cost, state_bottle_retail,item_description,bottles_sold,
+ROUND(AVG(state_bottle_retail)-AVG(state_bottle_cost),2) /nullif(AVG(state_bottle_cost),0)*100 as 
+AvgProfitMargin
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY state_bottle_cost, state_bottle_retail,item_description,bottles_sold
+ORDER BY bottles_sold DESC , AvgProfitMargin DESC
+LIMIT 20
+
+--8. Which 20 bottles yield the highest average profit margin per bottle sold?
+
+SELECT state_bottle_cost, state_bottle_retail,item_description,bottles_sold,
+ROUND(AVG(state_bottle_retail)-AVG(state_bottle_cost),2) /nullif(AVG(state_bottle_cost),0)*100 as 
+AvgProfitMargin
+FROM `bigquery-public-data.iowa_liquor_sales.sales`
+GROUP BY state_bottle_cost, state_bottle_retail,item_description,bottles_sold
+ORDER BY  AvgProfitMargin DESC
+LIMIT 20
