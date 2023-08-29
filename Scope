@@ -1,0 +1,20 @@
+This dataset contains every wholesale purchase of liquor in the State of Iowa by retailers for sale to individuals since January 1, 2012. The State of Iowa controls the wholesale distribution of liquor intended for retail sale, which means this dataset offers a complete view of retail liquor sales in the entire state. The dataset contains every wholesale order of liquor by all grocery stores, liquor stores, convenience stores, etc., with details about the store and location, the exact liquor brand and size, and the number of bottles ordered.
+In addition to being an excellent dataset for analyzing liquor sales, this is a large and clean public dataset of retail sales data. It can be used to explore problems like stockout prediction, retail demand forecasting, and other retail supply chain problems.
+
+The public data set used for this project is a public dataset obtained from the Iowa Department of Commerce and it entails data about the Iowa Liquor retail sales. The data includes a comprehensive record of all liquor purchases from wholesale orders, grocery stores, liquor stores, convenience stores, etc.  The dataset was acquired from a public library, an alternative resource for the data is https://data.iowa.gov/Sales-Distribution/Iowa-Liquor-Sales/m3tr-qhgy
+
+Business Challenge
+A prominent young businessperson is looking to diversify their portfolio by entering the spirits and beverage business sector in the state of Iowa. They are seeking to maximize their profits while minimizing errors and mistakes in the process of doing business. 
+
+My objective is to support the prominent businessman and ensure they make the right business decision. I plan to achieve the following by analyzing the data and providing general recommendations at a macro level that will initiate the investment process. 
+The KEY questions to be asked in the analysis process are the following: 
+--2. How many bottles of liquor are sold annually?
+--3. Which are the top 10 selling bottles for each year?
+--4. Which county in Iowa records the highest amount of liquor sales?
+--5. Which are the Top 20 performing stores in the state of Iowa and the county they are located?
+--6.  What is the total sales of bottles grouped by the month. 
+--7. What is the Average Profit Margin per bottle sold on the 20 highest selling bottles?
+--8. Which 20 bottles yield the highest average profit margin per bottle sold?
+
+The questions listed above will help us gain an insight into the market and help us answer very important decisions about the potential investment opportunity. 
+Answering the above questions will help us determine the annual trend in alcohol sales, determine the best and worst months, determine the counties to consider, determine our strongest competitor, the best selling items, the most profitable items, etc.
